@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>manacode.su — Дмитрий Носач, Go-инженер</title>
+<meta name="description" content="Дмитрий Носач — Go-инженер в бигтехе. Бэкенды на Go, разработка с AI, архитектура и базы данных. Свои проекты и эксперименты.">
+
+<link rel="canonical" href="https://manacode.su/">
+<meta name="theme-color" content="#0d1220">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="manacode.su">
+<meta property="og:url" content="https://manacode.su/">
+<meta property="og:title" content="manacode.su — Дмитрий Носач, Go-инженер">
+<meta property="og:description" content="Go-инженер в бигтехе. Бэкенды на Go, разработка с AI, архитектура и базы данных.">
+<meta property="og:image" content="https://manacode.su/assets/manacode-512.png">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="manacode.su">
+<meta name="twitter:description" content="Go-инженер в бигтехе. Бэкенды на Go, разработка с AI, архитектура и базы данных.">
+<meta name="twitter:image" content="https://manacode.su/assets/manacode-512.png">
+
+<link rel="icon" href="assets/manacode-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/manacode-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="assets/manacode-256.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&amp;family=Golos+Text:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Dmitrii Nosach",
+  "url": "https://manacode.su/",
+  "jobTitle": "Продуктовый разработчик",
+  "knowsAbout": ["Go", "Разработка с AI", "Архитектура ПО", "Базы данных", "Распределённые системы", "Пользовательские интерфейсы"],
+  "sameAs": ["https://github.com/dmitriinosach"]
+}
+</script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111900387', 'ym');
+
+    ym(111900387, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/111900387" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<style>
+  * { box-sizing: border-box; margin: 0; }
+
+  :root {
+    --bg: oklch(0.16 0.035 268);
+    --bg-raise: oklch(0.94 0.02 268 / 0.045);
+    --ink: oklch(0.95 0.01 268);
+    --ink-dim: oklch(0.95 0.01 268 / 0.64);
+    --ink-faint: oklch(0.95 0.01 268 / 0.42);
+    --line: oklch(0.95 0.01 268 / 0.1);
+    --mana-1: oklch(0.7 0.16 235);   /* мана: голубая */
+    --mana-2: oklch(0.62 0.19 290);  /* мана: фиолетовая */
+    --mana-ink: oklch(0.8 0.1 250);
+    --gold: oklch(0.82 0.13 85);     /* золото, как в инвентаре */
+    --display: "Unbounded", "Golos Text", sans-serif;
+    --sans: "Golos Text", "Segoe UI", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--mana-ink); }
+  :focus-visible { outline: 2px solid var(--mana-1); outline-offset: 3px; border-radius: 6px; }
+
+  @keyframes mc-bubble { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: 0.75; } 80% { opacity: 0.5; } 100% { transform: translateY(-64px); opacity: 0; } }
+  @keyframes mc-sway { 0%, 100% { margin-left: 0; } 50% { margin-left: 4px; } }
+  @keyframes mc-glow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  @keyframes mc-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes mc-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+  }
+
+  .page {
+    min-height: 100dvh;
+    display: grid; grid-template-rows: auto 1fr auto;
+    position: relative; overflow: hidden;
+  }
+  /* мягкий свет орба справа, вполсилы */
+  .glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(44rem 36rem at 88% 30%, oklch(0.5 0.15 275 / 0.22), transparent 65%),
+      radial-gradient(30rem 24rem at -4% 110%, oklch(0.5 0.14 240 / 0.16), transparent 62%);
+  }
+
+  .shell { width: 100%; max-width: 1060px; margin: 0 auto; padding-inline: 48px; position: relative; }
+
+  /* ── большой мана-орб справа ── */
+  .orb-xl {
+    position: absolute; right: max(-90px, calc((100vw - 1500px) / 6)); top: 50%;
+    width: 330px; height: 330px; margin-top: -165px;
+    pointer-events: none; opacity: 0.85;
+  }
+  .orb-xl .halo { position: absolute; inset: -70px; border-radius: 999px; background: radial-gradient(circle, oklch(0.55 0.17 260 / 0.3), transparent 68%); animation: mc-glow 5s ease-in-out infinite; }
+  .orb-xl .body {
+    position: absolute; inset: 0; border-radius: 999px; overflow: hidden;
+    background: radial-gradient(circle at 34% 28%, oklch(0.72 0.11 240 / 0.85), oklch(0.5 0.16 262 / 0.7) 52%, oklch(0.28 0.12 282 / 0.85));
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.1), inset 0 -30px 60px oklch(0.25 0.12 285 / 0.8);
+  }
+  .orb-xl .gloss { position: absolute; left: 17%; top: 11%; width: 34%; height: 13%; border-radius: 999px; background: rgb(255 255 255 / 0.16); transform: rotate(-20deg); filter: blur(6px); }
+  @keyframes mc-bubble-xl { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.6; } 82% { opacity: 0.4; } 100% { transform: translateY(-330px); opacity: 0; } }
+  .orb-xl .body i { position: absolute; bottom: -16px; border-radius: 999px; background: rgb(255 255 255 / 0.32); }
+  .orb-xl .body i:nth-child(1) { left: 26%; width: 12px; height: 12px; animation: mc-bubble-xl 7s linear infinite, mc-sway 7s ease-in-out infinite; }
+  .orb-xl .body i:nth-child(2) { left: 50%; width: 8px; height: 8px; animation: mc-bubble-xl 8.4s linear infinite 2.4s, mc-sway 8.4s ease-in-out infinite 2.4s; }
+  .orb-xl .body i:nth-child(3) { left: 68%; width: 10px; height: 10px; animation: mc-bubble-xl 7.7s linear infinite 4.4s, mc-sway 7.7s ease-in-out infinite 4.4s; }
+  @media (max-width: 980px) { .orb-xl { display: none; } }
+
+  /* ── шапка ── */
+  header .shell {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding-block: 22px;
+  }
+  .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; color: inherit; }
+  .logo { position: relative; display: block; width: 26px; height: 26px; flex-shrink: 0; }
+  .logo .halo { position: absolute; inset: -6px; border-radius: 999px; background: radial-gradient(circle, oklch(0.6 0.17 250 / 0.55), transparent 70%); animation: mc-glow 3.2s ease-in-out infinite; }
+  .logo .orb {
+    position: absolute; inset: 0; border-radius: 999px; overflow: hidden;
+    background: radial-gradient(circle at 34% 30%, oklch(0.85 0.09 235), oklch(0.62 0.17 260) 55%, oklch(0.36 0.14 280));
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.16);
+  }
+  .logo .b1 { position: absolute; left: 5px; bottom: -4px; width: 4px; height: 4px; border-radius: 999px; background: rgb(255 255 255 / 0.55); animation: mc-bubble 2.9s linear infinite, mc-sway 2.9s ease-in-out infinite; }
+  .logo .b2 { position: absolute; left: 14px; bottom: -4px; width: 3px; height: 3px; border-radius: 999px; background: rgb(255 255 255 / 0.45); animation: mc-bubble 3.6s linear infinite 1.1s, mc-sway 3.6s ease-in-out infinite 1.1s; }
+  .logo .gloss { position: absolute; left: 6px; top: 4px; width: 10px; height: 5px; border-radius: 999px; background: rgb(255 255 255 / 0.3); transform: rotate(-18deg); filter: blur(0.5px); }
+  .wordmark { font-family: var(--display); font-size: 14px; font-weight: 500; letter-spacing: 0.01em; }
+  .wordmark span { color: var(--mana-ink); }
+
+  nav.top { display: flex; align-items: center; gap: 24px; }
+  nav.top a { font-size: 14px; color: var(--ink-dim); text-decoration: none; }
+  nav.top a:hover { color: var(--ink); }
+
+  /* ── герой ── */
+  main { display: flex; align-items: center; }
+  .hero { padding-block: 28px 18px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint);
+    animation: mc-rise 0.5s ease-out both;
+  }
+  .eyebrow b { color: var(--mana-ink); font-weight: 500; }
+
+  h1 {
+    margin-top: 16px;
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(28px, 4.6vw, 52px); line-height: 1.16; letter-spacing: -0.01em;
+    max-width: 21ch; text-wrap: balance;
+    animation: mc-rise 0.5s ease-out 0.06s both;
+  }
+  h1 em { font-style: normal; color: var(--mana-ink); }
+
+  .lead {
+    margin-top: 18px; font-size: clamp(15.5px, 1.5vw, 18px); line-height: 1.65;
+    color: var(--ink-dim); max-width: 58ch; text-wrap: pretty;
+    animation: mc-rise 0.5s ease-out 0.12s both;
+  }
+  .lead a { text-decoration: none; border-bottom: 1px solid oklch(0.7 0.16 235 / 0.4); }
+  .lead a:hover { border-bottom-color: currentColor; }
+
+  /* ── мана-бар: на что уходит мана ── */
+  .mana { margin-top: 30px; max-width: 560px; animation: mc-rise 0.5s ease-out 0.18s both; }
+  .mana__head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-bottom: 9px;
+  }
+  .mana__head .mp { color: var(--mana-ink); }
+  .mana__bar {
+    display: flex; gap: 3px; height: 12px; border-radius: 999px; overflow: hidden;
+    padding: 2px; border: 1px solid oklch(0.7 0.16 250 / 0.3);
+    background: oklch(0.7 0.16 250 / 0.06);
+  }
+  .mana__seg {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--mana-1), var(--mana-2));
+    transform-origin: left; animation: mc-fill 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s both;
+  }
+  .mana__seg:nth-child(2) { animation-delay: 0.45s; opacity: 0.85; }
+  .mana__seg:nth-child(3) { animation-delay: 0.6s; opacity: 0.7; }
+  .mana__seg:nth-child(4) { animation-delay: 0.75s; opacity: 0.55; }
+  .mana__legend { display: flex; gap: 3px; margin-top: 8px; }
+  .mana__legend span {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint);
+    white-space: nowrap; overflow: hidden; text-overflow: clip;
+  }
+  .mana__legend span::before { content: "▪ "; color: var(--mana-ink); }
+
+  .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; animation: mc-rise 0.5s ease-out 0.24s both; }
+  .btn { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; font-size: 15px; }
+  .btn--fill {
+    padding: 13px 26px; border-radius: 12px; font-weight: 600;
+    background: linear-gradient(105deg, var(--mana-1), var(--mana-2));
+    color: oklch(0.14 0.03 265);
+    box-shadow: 0 12px 32px -14px oklch(0.6 0.17 260 / 0.9);
+  }
+  .btn--fill:hover { filter: brightness(1.1); }
+  .btn--ghost { padding: 12px 24px; border-radius: 12px; border: 1px solid oklch(0.95 0.01 268 / 0.18); color: var(--ink); font-weight: 500; }
+  .btn--ghost:hover { border-color: oklch(0.95 0.01 268 / 0.4); }
+
+  /* ── интересы ── */
+  .tags {
+    display: flex; flex-direction: column; gap: 12px;
+    padding-block: 22px 14px;
+    animation: mc-rise 0.5s ease-out 0.3s both;
+  }
+  .tags__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .tags__label { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-right: 6px; min-width: 92px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink-dim);
+    padding: 6px 13px; border-radius: 999px;
+    background: var(--bg-raise); border: 1px solid var(--line);
+  }
+  a.tag { text-decoration: none; transition: border-color 140ms ease, color 140ms ease; }
+  a.tag:hover { color: var(--ink); border-color: oklch(0.7 0.16 250 / 0.45); }
+
+  /* ── пет-проекты ── */
+  .projects {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    padding-block: 0 36px;
+    animation: mc-rise 0.5s ease-out 0.36s both;
+  }
+  .projects .tags__label { margin-right: 6px; min-width: 92px; }
+  .proj {
+    display: flex; align-items: center; gap: 12px; min-width: 235px;
+    padding: 12px 18px; border-radius: 12px;
+    background: var(--bg-raise); border: 1px solid var(--line);
+    text-decoration: none; color: inherit;
+    transition: background 140ms ease, border-color 140ms ease;
+  }
+  a.proj:hover { background: oklch(0.94 0.02 268 / 0.09); border-color: oklch(0.7 0.16 250 / 0.4); }
+  .proj--soon { opacity: 0.75; cursor: default; }
+  .proj__icon { position: relative; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0; }
+  .proj__icon--ryadom { background: rgb(0 122 255); }
+  .proj__icon--ryadom .r-back { position: absolute; left: 16px; top: 15px; width: 9px; height: 9px; border-radius: 2.5px; background: rgb(255 255 255 / 0.66); }
+  .proj__icon--ryadom .r-tail { position: absolute; left: 8px; top: 15.5px; width: 5px; height: 5px; transform: rotate(45deg); background: #fff; }
+  .proj__icon--ryadom .r-bub { position: absolute; left: 6px; top: 7.5px; width: 18px; height: 10px; border-radius: 3px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 1.5px; }
+  .proj__icon--ryadom .r-bub b { width: 2.5px; height: 2.5px; border-radius: 999px; background: rgb(0 122 255); }
+  .proj__icon--wow { background: oklch(0.42 0.13 300); font-size: 16px; }
+  .proj__text { text-align: left; }
+  .proj__name { display: block; font-family: var(--mono); font-size: 13.5px; font-weight: 500; }
+  .proj__sub { display: block; font-size: 12px; color: var(--ink-faint); }
+  .proj__badge {
+    margin-left: auto; font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 999px;
+    background: oklch(0.82 0.13 85 / 0.13); border: 1px solid oklch(0.82 0.13 85 / 0.3);
+    color: var(--gold);
+  }
+
+  /* ── футер ── */
+  footer { border-top: 1px solid var(--line); }
+  footer .shell {
+    padding-block: 20px;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 28px;
+    font-size: 13.5px;
+  }
+  .foot-who { display: inline-flex; align-items: baseline; gap: 10px; }
+  .foot-who .n { opacity: 0.55; }
+  .foot-who .sep { opacity: 0.3; }
+  footer a { text-decoration: none; color: inherit; opacity: 0.6; }
+  footer a:hover { opacity: 1; color: var(--mana-ink); }
+  .foot-nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 10px 22px; }
+
+  @media (max-width: 640px) {
+    .shell { padding-inline: 22px; }
+    nav.top a:not(.wm) { display: none; }
+    .hero { padding-block: 26px 18px; }
+    .mana__legend span { font-size: 10.5px; }
+    .tags { padding-block: 18px 12px; }
+    .projects { padding-block: 0 34px; }
+    .proj { min-width: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="glow" aria-hidden="true"></div>
+
+  <header>
+    <div class="shell">
+      <a class="brand" href="/">
+        <span class="logo" aria-hidden="true">
+          <span class="halo"></span>
+          <span class="orb"><span class="b1"></span><span class="b2"></span><span class="gloss"></span></span>
+        </span>
+        <span class="wordmark">manacode<span>.su</span></span>
+      </a>
+      <nav class="top">
+        <a href="https://github.com/dmitriinosach">GitHub</a>
+        <a href="https://discord.gg/hpTkJCJbwn">Discord</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="orb-xl" aria-hidden="true">
+      <span class="halo"></span>
+      <span class="body"><i></i><i></i><i></i><span class="gloss"></span></span>
+    </div>
+    <div class="shell">
+      <section class="hero">
+        <p class="eyebrow">Дмитрий Носач · <b>продуктовый разработчик</b></p>
+        <h1>Go‑инженер в бигтехе. Вечерами собираю <em>своё</em>.</h1>
+        <p class="lead">Проектирую бэкенды на Go и разрабатываю с AI — он давно часть моего рабочего процесса. Люблю, когда система понятна на всех уровнях: от схемы данных до последнего пикселя интерфейса. Свободная мана уходит на свои проекты и эксперименты.</p>
+
+        <div class="mana" role="img" aria-label="На что уходит мана: Go — 44%, AI — 22%, интерфейсы — 18%, игры — 16%">
+          <div class="mana__head"><span>на что уходит мана</span><span class="mp">MP 100/100</span></div>
+          <div class="mana__bar" aria-hidden="true">
+            <div class="mana__seg" style="width:44%"></div>
+            <div class="mana__seg" style="width:22%"></div>
+            <div class="mana__seg" style="width:18%"></div>
+            <div class="mana__seg" style="width:16%"></div>
+          </div>
+          <div class="mana__legend" aria-hidden="true">
+            <span style="width:44%">go</span>
+            <span style="width:22%">ai</span>
+            <span style="width:18%">ui</span>
+            <span style="width:16%">игры</span>
+          </div>
+        </div>
+
+        <div class="cta">
+          <a class="btn btn--fill" href="https://github.com/dmitriinosach">GitHub</a>
+          <a class="btn btn--ghost" href="https://discord.gg/hpTkJCJbwn">Discord</a>
+        </div>
+      </section>
+
+      <section class="tags" aria-label="Интересы и пет-проекты">
+        <div class="tags__row">
+          <span class="tags__label">интересно:</span>
+          <span class="tag">go</span>
+          <span class="tag">архитектура</span>
+          <span class="tag">базы данных</span>
+          <span class="tag">распределённые системы</span>
+          <span class="tag">ai-агенты</span>
+          <span class="tag">llm</span>
+          <span class="tag">интерфейсы</span>
+        </div>
+      </section>
+
+      <section class="projects" aria-label="Пет-проекты">
+        <span class="tags__label">пет-проекты:</span>
+        <a class="proj" href="https://nearby.manacode.su">
+          <span class="proj__icon proj__icon--ryadom" aria-hidden="true">
+            <span class="r-back"></span><span class="r-tail"></span>
+            <span class="r-bub"><b></b><b></b><b></b></span>
+          </span>
+          <span class="proj__text">
+            <span class="proj__name">Рядом</span>
+            <span class="proj__sub">чат для локальной сети</span>
+          </span>
+        </a>
+        <div class="proj proj--soon">
+          <span class="proj__icon proj__icon--wow" aria-hidden="true">⚔️</span>
+          <span class="proj__text">
+            <span class="proj__name">Аддоны для WoW</span>
+            <span class="proj__sub">dimondru</span>
+          </span>
+          <span class="proj__badge">скоро</span>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <span class="foot-who">
+        <span class="n">Dmitrii Nosach</span>
+        <span class="sep">·</span>
+        <a href="https://github.com/dmitriinosach">GitHub</a>
+      </span>
+      <nav class="foot-nav">
+        <a href="https://discord.gg/hpTkJCJbwn">Discord</a>
+      </nav>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
