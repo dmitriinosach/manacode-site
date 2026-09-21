@@ -221,7 +221,7 @@
   /* ── интересы ── */
   .tags {
     display: flex; flex-direction: column; gap: 12px;
-    padding-block: 22px 14px;
+    padding-block: 22px 36px;
     animation: mc-rise 0.5s ease-out 0.3s both;
   }
   .tags__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
@@ -231,40 +231,6 @@
     font-family: var(--mono); font-size: 12.5px; color: var(--ink-dim);
     padding: 6px 13px; border-radius: 999px;
     background: var(--bg-raise); border: 1px solid var(--line);
-  }
-  a.tag { text-decoration: none; transition: border-color 140ms ease, color 140ms ease; }
-  a.tag:hover { color: var(--ink); border-color: oklch(0.7 0.16 250 / 0.45); }
-
-  /* ── пет-проекты ── */
-  .projects {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
-    padding-block: 0 36px;
-    animation: mc-rise 0.5s ease-out 0.36s both;
-  }
-  .projects .tags__label { margin-right: 6px; min-width: 92px; }
-  .proj {
-    display: flex; align-items: center; gap: 12px; min-width: 235px;
-    padding: 12px 18px; border-radius: 12px;
-    background: var(--bg-raise); border: 1px solid var(--line);
-    text-decoration: none; color: inherit;
-    transition: background 140ms ease, border-color 140ms ease;
-  }
-  a.proj:hover { background: oklch(0.94 0.02 268 / 0.09); border-color: oklch(0.7 0.16 250 / 0.4); }
-  .proj--soon { opacity: 0.75; cursor: default; }
-  .proj__icon { position: relative; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0; }
-  .proj__icon--ryadom { background: rgb(0 122 255); }
-  .proj__icon--ryadom .r-back { position: absolute; left: 16px; top: 15px; width: 9px; height: 9px; border-radius: 2.5px; background: rgb(255 255 255 / 0.66); }
-  .proj__icon--ryadom .r-tail { position: absolute; left: 8px; top: 15.5px; width: 5px; height: 5px; transform: rotate(45deg); background: #fff; }
-  .proj__icon--ryadom .r-bub { position: absolute; left: 6px; top: 7.5px; width: 18px; height: 10px; border-radius: 3px; background: #fff; display: flex; align-items: center; justify-content: center; gap: 1.5px; }
-  .proj__icon--ryadom .r-bub b { width: 2.5px; height: 2.5px; border-radius: 999px; background: rgb(0 122 255); }
-  .proj__icon--wow { background: oklch(0.42 0.13 300); font-size: 16px; }
-  .proj__text { text-align: left; }
-  .proj__name { display: block; font-family: var(--mono); font-size: 13.5px; font-weight: 500; }
-  .proj__sub { display: block; font-size: 12px; color: var(--ink-faint); }
-  .proj__badge {
-    margin-left: auto; font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 999px;
-    background: oklch(0.82 0.13 85 / 0.13); border: 1px solid oklch(0.82 0.13 85 / 0.3);
-    color: var(--gold);
   }
 
   /* ── футер ── */
@@ -286,9 +252,7 @@
     nav.top a:not(.wm) { display: none; }
     .hero { padding-block: 26px 18px; }
     .mana__legend span { font-size: 10.5px; }
-    .tags { padding-block: 18px 12px; }
-    .projects { padding-block: 0 34px; }
-    .proj { min-width: 0; width: 100%; }
+    .tags { padding-block: 18px 34px; }
   }
 </style>
 </head>
@@ -346,7 +310,7 @@
         </div>
       </section>
 
-      <section class="tags" aria-label="Интересы и пет-проекты">
+      <section class="tags" aria-label="Интересы">
         <div class="tags__row">
           <span class="tags__label">интересно:</span>
           <span class="tag">go</span>
@@ -356,28 +320,6 @@
           <span class="tag">ai-агенты</span>
           <span class="tag">llm</span>
           <span class="tag">интерфейсы</span>
-        </div>
-      </section>
-
-      <section class="projects" aria-label="Пет-проекты">
-        <span class="tags__label">пет-проекты:</span>
-        <a class="proj" href="https://nearby.manacode.su">
-          <span class="proj__icon proj__icon--ryadom" aria-hidden="true">
-            <span class="r-back"></span><span class="r-tail"></span>
-            <span class="r-bub"><b></b><b></b><b></b></span>
-          </span>
-          <span class="proj__text">
-            <span class="proj__name">Рядом</span>
-            <span class="proj__sub">чат для локальной сети</span>
-          </span>
-        </a>
-        <div class="proj proj--soon">
-          <span class="proj__icon proj__icon--wow" aria-hidden="true">⚔️</span>
-          <span class="proj__text">
-            <span class="proj__name">Аддоны для WoW</span>
-            <span class="proj__sub">dimondru</span>
-          </span>
-          <span class="proj__badge">скоро</span>
         </div>
       </section>
     </div>
